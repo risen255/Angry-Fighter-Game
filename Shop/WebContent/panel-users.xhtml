@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="title">Użytkownicy</ui:define>
+	
+	<ui:define name="content">
+	
+		<!-- Logged in -->
+		<c:if test="#{login.loggedIn}">
+	
+			<div class="panel">
+				<div class="panelNavi">
+					<ul>
+						<a href="panel.xhtml">
+							<li>Produkty</li>
+						</a>
+						
+						<a href="panel-users.xhtml">
+							<li style="color: orange">Użytkownicy</li>
+						</a>
+						
+						<a href="panel-wholesale.xhtml">
+							<li>Hurtownia</li>
+						</a>
+						
+						<a href="panel-purchases.xhtml">
+							<li>Zamówienia</li>
+						</a>
+					</ul>
+				</div>
+				
+				<div class="panelNavi-title">
+					Lista użytkowników
+				</div>
+				
+	
+				<div class="panelNavi-table">
+					<h:dataTable styleClass="order-table"
+	    						 headerClass="order-table-header"
+	    						 rowClasses="order-table-odd-row,order-table-even-row" value="#{userManager.userList}" var="u">
+	    			
+	    				<h:column>
+		    				<f:facet name="header">ID</f:facet>
+		    				#{u.id}
+		    			</h:column>
+	    			
+		    			<h:column>
+		    				<f:facet name="header">Nazwa użytkownika</f:facet>
+		    				#{u.username}
+		    			</h:column>
+		    			
+		    			<h:column>
+		    				<f:facet name="header">E-mail</f:facet>
+		    				#{u.email}
+		    			</h:column>
+		    			
+		    			<h:column>
+		    				<f:facet name="header">Numer telefonu</f:facet>
+		    				#{u.phoneNumber}
+		    			</h:column>
+					</h:dataTable>
+				</div>
+			</div>
+		</c:if>
+		
+		<!-- Not logged in -->
+		<c:if test="#{!login.loggedIn}">
+			<div class="badway">
+				Ooops, zabłądziłem...
+			</div>
+		</c:if>
+		
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title><ui:insert name="title">Default title</ui:insert></title>
+	<h:outputStylesheet library="css" name="style.css"  />
+	<h:outputScript library="js" name="jQuery.js" />
+	<h:outputScript library="js" name="main.js" />
+</h:head>
+
+<h:body>
+	<ui:debug hotkey="x"
+		rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
+
+	<div id="header">
+		<ui:insert name="header">
+			<ui:include src="header.xhtml" />
+		</ui:insert>
+	</div>
+
+	<div id="content">
+		<div id="userNavi">
+			<ul>
+				<a href="index.xhtml">
+					<li>Strona główna</li>
+				</a>
+				
+				<c:if test="#{login.loggedIn}">
+					<a href="panel.xhtml">
+						<li>Panel administracyjny</li>
+					</a>
+				</c:if>
+				
+				<c:if test="#{login.loggedIn}">
+					<li>
+						<h:form>
+							<h:commandButton value="Wyloguj [#{login.user.username}]" action="#{login.doLogout}" styleClass="black-button"/>
+						</h:form>
+					</li>
+				</c:if>
+				
+				<c:if test="#{!login.loggedIn}">
+					<a href="register.xhtml">
+						<li>Rejestracja</li>
+					</a>
+				</c:if>
+			</ul>
+		</div>
+		
+		
+		<ui:insert name="content">
+			<ui:include src="content.xhtml" />
+		</ui:insert>
+	</div>
+
+	<div id="footer">
+		<ui:insert name="footer">
+			<ui:include src="footer.xhtml" />
+		</ui:insert>
+	</div>
+</h:body>
+
+</html>

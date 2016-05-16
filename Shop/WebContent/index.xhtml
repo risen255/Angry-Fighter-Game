@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="/templates/main-template.xhtml">
+	<ui:define name="title">Strona główna</ui:define>
+	
+	<ui:define name="content">
+	
+		<div class="loginForm-messages">
+			<h:outputText id="userMessageFail"/>
+			<h:message for="userMessageFail" style="color: red" styleClass="bold margin-right-50"/>
+		</div>
+		
+		<div class="loginForm">
+		
+			<!--  Not Logged In  BEGIN-->
+			<c:if test="#{!login.loggedIn}">
+			
+				<h:form styleClass="form form-style-8">
+		
+					<h:panelGrid columns="2">
+						<h:outputLabel>Nazwa użytkownika:</h:outputLabel>
+						<h:inputText id="username" value="#{loginCredential.username}"/>
+						
+						<h:outputLabel>Hasło:</h:outputLabel>
+						<h:inputText id="password" value="#{loginCredential.password}" />
+					</h:panelGrid>
+		
+					<h:commandButton value="Zaloguj się" action="#{login.doLogin}" rendered="#{!login.loggedIn}"/>
+					
+					<h:commandButton value="Wyloguj się" action="#{login.doLogout}" rendered="#{login.loggedIn}"/>
+		
+				</h:form>
+			
+			</c:if>
+		    <!--  Not Logged In  END-->
+		    
+		    <!--  Logged In  BEGIN-->
+		    <c:if test="#{login.loggedIn}">
+		    	<div class="panelAdmin-background">
+		    		<a href="panel.xhtml" class="panelAdmin-link">
+				    	<div class="panelAdmin-link">
+				    		Przejdź do Panelu Administracyjnego
+				    	</div>
+				    </a>
+				 </div>
+		    </c:if>
+		    
+		    <!--  Logged In END-->
+	    </div>
+		
+	</ui:define>
+</ui:composition>
+</html>
